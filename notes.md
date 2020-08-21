@@ -13,7 +13,7 @@
             * MCMC  - forms a Markov Chain whose stationary distribution is $p(z|x)$
             * Variational Inference
 * **Variational Inference**
-    * ![variational-inference.png](Images/variational-inference.png)
+    * <img src="notes.assets/variational-inference.png" alt="variational-infernce" width="300px"  />
     * VI turns **inference into optimization**.
     * Posit a **variational family** of distributions over the latent variables, $q(\mathbf{z} ; \boldsymbol{v})$
     * Fit the **variational parameters** $\nu$ to be close (in $\mathrm{KL}$) to the exact posterior. 
@@ -27,7 +27,7 @@
 # Part 2: Mean-field VI and Stochastic VI
 * Topic models: Use posterior inference to discover the hidden thematic structure in a large collection of documents. Eg. LDA
 * LDA
-    * ![LDA-model.png](Images/LDA-model.png)
+    * <img src="notes.assets/LDA-model.png" alt="LDA-model.png" style="width: 300px;" />
 
     * idea:
         * Each **topic** is a distribution over words
@@ -40,7 +40,7 @@ Define the generic class of conditionally conjugate models
 Derive classical mean-field VI
 Derive stochastic VI, which scales to massive data
 ## Generic Class of Conditionally Conjugate Models
-* ![generic-model.png](Images/generic-model.png)
+* <img src="notes.assets/generic-model.png" alt="generic-model.png" style="width:300px;" />
 * The **observations** are $\mathbf{x}=x_{1: n}$
 * The **local variables** are $\mathbf{z}=z_{1: n}$
 * The **global variables** are $\beta$.
@@ -71,7 +71,7 @@ Derive stochastic VI, which scales to massive data
     * _Caveat_: The ELBO is not convex.
         * => Find a local optimum
 * **Mean-Field Family**
-    * ![mean-field-VI.png](Images/mean-field-VI.png)
+    * <img src="notes.assets/mean-field-VI.png" alt="mean-field-VI.png" style="zoom: 33%;" />
 
     * A form of $q(\beta, \mathbf{z})$.
     * **Fully factorized**: All latent variables are independent and governed by their on variational parameters.
@@ -90,7 +90,7 @@ Derive stochastic VI, which scales to massive data
             * In VI we set it to the expectation 
     * Caveat: The ELBO is not convex. 
 * **Mean Field VI for LDA**
-    * ![LDA-VI.png](Images/LDA-VI.png)
+    * <img src="notes.assets/LDA-VI.png" alt="LDA-VI.png" style="zoom: 33%;" />
     * The local variables are the per-document variables $\theta_{d}$ and $\mathbf{z}_{d}$.
     * The global variables are the topics $\beta_{1}, \ldots, \beta_{K}$
     * The variational distribution is 
@@ -108,7 +108,8 @@ Derive stochastic VI, which scales to massive data
 * _Solution_: Stochastic VI scales VI to massive data.
 
 ## Stochastic VI
-![stochastic-VI.png](Images/stochastic-VI.png)
+<img src="notes.assets/stochastic-VI.png" alt="stochastic-VI.png" style="zoom: 33%;" />
+
 * **Stochastic Optimization**
     * With noisy gradients, update
         * $v_{t+1}=v_{t}+\rho_{t} \hat{\nabla}_{v} \mathscr{L}\left(v_{t}\right)$
@@ -139,7 +140,7 @@ Derive stochastic VI, which scales to massive data
 
 # Part 3: Stochastic gradients of the ELBO
 ## VI Recipe
-*![VI-recipe-1.png](Images/VI-recipe-1.png)
+* <img src="notes.assets/VI-recipe-1.png" alt="VI-recipe-1.png" style="zoom: 50%;" />
 
 * Start with a model: $p(z, x)$
 * Choose a variational approximation: $q(\mathbf{z} ; \boldsymbol{v})$
@@ -165,7 +166,8 @@ Derive stochastic VI, which scales to massive data
                 * The expectation hides the objectives dependence on the variational parameters. This makes it hard to directly optimize.
     * Want a blackbox VI algorithm that works for non-Conjugate models as well.
 ## New Blackbox VI recipe
-![VI-recipe-2.png](Images/VI-recipe-2.png)
+* <img src="notes.assets/VI-recipe-2.png" alt="VI-recipe-2.png" style="zoom: 50%;" />
+
 * Define $g(\mathbf{z}, \boldsymbol{v})=\log p(\mathbf{x}, \mathbf{z})-\log q(\mathbf{z} ; \boldsymbol{v})$
 * $\begin{aligned} \nabla_{v} \mathscr{L} &=\nabla_{v} \int q(\mathbf{z} ; \boldsymbol{v}) g(\mathbf{z}, \boldsymbol{v}) d \mathbf{z} \\ &=\int \nabla_{v} q(\mathbf{z} ; \boldsymbol{v}) g(\mathbf{z}, \boldsymbol{v})+q(\mathbf{z} ; \boldsymbol{v}) \nabla_{v} g(\mathbf{z}, \boldsymbol{v}) d \mathbf{z} \\ &=\int q(\mathbf{z} ; \boldsymbol{v}) \nabla_{v} \log q(\mathbf{z} ; \boldsymbol{v}) g(\mathbf{z}, \boldsymbol{v})+q(\mathbf{z} ; \boldsymbol{v}) \nabla_{\boldsymbol{v}} g(\mathbf{z}, \boldsymbol{v}) d \mathbf{z} \\ &=\mathbb{E}_{q(\mathbf{z} ; \boldsymbol{v})}\left[\nabla_{\boldsymbol{v}} \log q(\mathbf{z} ; \boldsymbol{v}) g(\mathbf{z}, \boldsymbol{v})+\nabla_{v} g(\mathbf{z}, \boldsymbol{v})\right] \end{aligned}$
 ### Score-Function Gradients
@@ -248,9 +250,9 @@ Derive stochastic VI, which scales to massive data
     * Annealing + Tempering
     * Consider sampling across samples from $q$ (embarassingly parallelable)
 # Part 4: Beyond the Mean-field
-* ![structured-mean-field.png](Images/structured-mean-field.png)
+* <img src="notes.assets/structured-mean-field.png" alt="structured-mean-field.png" style="zoom: 50%;" />
 
-* ![covariance-models.png](Images/covariance-models.png)
+* <img src="notes.assets/covariance-models.png" alt="covariance-models.png" style="zoom: 50%;" />
     * $q_{G}(\mathbf{z} ; \boldsymbol{v})=\mathscr{N}(\mathbf{z} \mid \boldsymbol{\mu}, \boldsymbol{\Sigma})$
 * **Beyond Gaussian Approximations**
     * **Autoregressive distributions**:
@@ -259,6 +261,5 @@ Derive stochastic VI, which scales to massive data
         * Joint distribution is non-gaussian even though the conditionals are.
     * More structured Posteriors
 
-
-![posterior-approximations.png](Images/posterior-approximations.png)
+<img src="notes.assets/posterior-approximations.png" alt="posterior-approximations.png" style="zoom: 67%;" />
 
