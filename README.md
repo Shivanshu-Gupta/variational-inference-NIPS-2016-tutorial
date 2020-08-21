@@ -1,0 +1,1 @@
+# variational-inference-NIPS-2016-tutorial
